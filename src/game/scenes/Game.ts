@@ -21,6 +21,7 @@ export class Game extends Scene
     private enemyDirection = 1;
     private enemySpeed = 60;
     private enemyFireTimer!: Phaser.Time.TimerEvent;
+    private starfield!: GameObjects.TileSprite;
 
     constructor ()
     {
@@ -36,7 +37,7 @@ export class Game extends Scene
         this.enemyDirection = 1;
         this.enemySpeed = 60;
 
-        this.cameras.main.setBackgroundColor(0x000000);
+        this.starfield = this.add.tileSprite(512, 384, 1024, 768, 'starfield').setDepth(-1);
 
         // Player
         this.player = this.physics.add.image(512, 700, 'player');
@@ -114,6 +115,8 @@ export class Game extends Scene
 
     update ()
     {
+        this.starfield.tilePositionY += 0.5;
+
         if (this.isGameOver) return;
 
         // Player movement

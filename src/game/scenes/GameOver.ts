@@ -12,7 +12,7 @@ export class GameOver extends Scene
         const centerX = 512;
         const finalScore = data.score ?? 0;
 
-        this.cameras.main.setBackgroundColor(0x000000);
+        this.add.tileSprite(512, 384, 1024, 768, 'starfield').setDepth(-1);
 
         this.add.text(centerX, 250, 'GAME OVER', {
             fontFamily: 'Courier New',

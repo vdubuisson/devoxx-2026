@@ -11,6 +11,8 @@ export class MainMenu extends Scene
     {
         const centerX = 512;
 
+        this.add.tileSprite(512, 384, 1024, 768, 'starfield').setDepth(-1);
+
         this.add.text(centerX, 180, 'DEVOXX INVADERS', {
             fontFamily: 'Courier New',
             fontSize: '64px',
