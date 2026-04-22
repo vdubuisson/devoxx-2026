@@ -2,34 +2,52 @@ import { Scene } from 'phaser';
 
 export class GameOver extends Scene
 {
-    camera: Phaser.Cameras.Scene2D.Camera;
-    background: Phaser.GameObjects.Image;
-    gameover_text : Phaser.GameObjects.Text;
-
     constructor ()
     {
         super('GameOver');
     }
 
-    create ()
+    create (data: { score?: number })
     {
-        this.camera = this.cameras.main
-        this.camera.setBackgroundColor(0xff0000);
+        const centerX = 512;
+        const finalScore = data.score ?? 0;
 
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
+        this.cameras.main.setBackgroundColor(0x000000);
 
-        this.gameover_text = this.add.text(512, 384, 'Game Over', {
-            fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
+        this.add.text(centerX, 250, 'GAME OVER', {
+            fontFamily: 'Courier New',
+            fontSize: '72px',
+            color: '#ff4444',
+            stroke: '#000000',
+            strokeThickness: 4,
             align: 'center'
+        }).setOrigin(0.5);
+
+        this.add.text(centerX, 360, 'SCORE: ' + finalScore, {
+            fontFamily: 'Courier New',
+            fontSize: '36px',
+            color: '#ffffff',
+            align: 'center'
+        }).setOrigin(0.5);
+
+        const restartText = this.add.text(centerX, 460, 'CLICK TO RESTART', {
+            fontFamily: 'Courier New',
+            fontSize: '24px',
+            color: '#ffff44',
+            align: 'center'
+        }).setOrigin(0.5);
+
+        this.tweens.add({
+            targets: restartText,
+            alpha: 0.2,
+            duration: 800,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut'
         });
-        this.gameover_text.setOrigin(0.5);
 
         this.input.once('pointerdown', () => {
-
             this.scene.start('MainMenu');
-
         });
     }
 }
